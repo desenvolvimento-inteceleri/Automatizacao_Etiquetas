@@ -55,7 +55,7 @@ def gerar_etiquetas(tabela, logo, championship, stage):
       if y < margem_vertical:
         c.showPage()
         y = altura_pagina - margem_vertical - altura_etiqueta
-
-  c.save()
-
+  return c
+  #c.save() # ISSO AQUI CRIA O ARQUIVO E SALVA NA TUA PASTA, MAS TU NÃO QUER SALVAR E SIM RETORNAR O "C" PARA QUE ELE SEJA ARMAZENADO LÁ NO OUTRO ARQUIVO, DENTRO DE UMA VARIAVEL, ENTÃO TU VAI RETORNAR USANDO O "RETURN C", OU SEJA "C" É A TUA VARIAVEL QUE É UM PDF E TU TA RETORNANDO ELA
+  
 

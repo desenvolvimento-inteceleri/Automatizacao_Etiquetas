@@ -9,7 +9,7 @@ def convert_df(df: pd.DataFrame):
 	return df.to_csv(index=False).encode('utf-8')
 
 def main():
-	st.title("Tratamento Tabela de Etiquetas")
+	st.title("Criação de Etiquetas - SEMEC")
 	pd.options.mode.chained_assignment = None  # default='warn'
 
 	# Botão de upload do arquivo CSV
@@ -76,7 +76,7 @@ def main():
 		# Tratamento dos dados da nova tabela 
 		newnew_df = new_df.melt(id_vars=['NOME ESCOLA', 'DISTRITO'], var_name='ATRIBUTO', value_name="TOTAL")
 		clean_df = newnew_df.dropna()
-		clean_df["TOTAL"] = pd.to_numeric(clean_df["TOTAL"], errors='coerce')
+		clean_df["TOTAL"] = pd.to_numeric(clean_df["TOTAL"], errors='coerce').astype(int)
 		clean_df = clean_df[clean_df["TOTAL"] != 0]
 
 		# Formatando o nome das Escolasde de forma que fiquem sem as siglas  
@@ -105,8 +105,11 @@ def main():
 		stage = st.text_input("Etapa").upper()
 	
 		if logo_file is not None and championship is not None and stage is not None:
-			gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stage)
-
+			# COLOCA ESSA CHAMADA DE FUNÇÃO ABAIXO EM UMA VARIAVEL, QUANDO A FUNÇÃO FOR EXECUTADA ELA VAI RETORNAR UM VALOR QUE VAI SER ARMAZENADO EM UMA VARIAVEL, AI TU VAI DISPONIBILIZAR ESSA VARIAVEL PRA DOWNLOAD. PARA A FUNÇÃO RETORNAR O ARQUIVO TU PRECISA USAR O 'RETURN' LÁ NO CREATE_LABELS
+			#	PDF =	gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stavou
+			pdf = gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stage) # essa função ta retornando o C, o C é um arq
+		    
+	#tenta fazer, sem GPT ta 
 
 if __name__ == "__main__":
 	main()

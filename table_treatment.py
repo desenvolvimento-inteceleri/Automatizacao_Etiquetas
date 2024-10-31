@@ -104,12 +104,15 @@ def main():
 		championship = st.text_input("Nome do Campeonato").upper()
 		stage = st.text_input("Etapa").upper()
 	
-		if logo_file is not None and championship is not None and stage is not None:
-			# COLOCA ESSA CHAMADA DE FUNÇÃO ABAIXO EM UMA VARIAVEL, QUANDO A FUNÇÃO FOR EXECUTADA ELA VAI RETORNAR UM VALOR QUE VAI SER ARMAZENADO EM UMA VARIAVEL, AI TU VAI DISPONIBILIZAR ESSA VARIAVEL PRA DOWNLOAD. PARA A FUNÇÃO RETORNAR O ARQUIVO TU PRECISA USAR O 'RETURN' LÁ NO CREATE_LABELS
-			#	PDF =	gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stavou
-			pdf = gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stage) # essa função ta retornando o C, o C é um arq
-		    
-	#tenta fazer, sem GPT ta 
+		if logo_file and championship and stage:
+			pdf = gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stage)
+			if pdf is not None:
+				st.download_button(
+					label="Baixar PDF",
+					data=pdf,
+					file_name='etiquetas_semec.pdf',
+					mime='text/csv'
+				)		    
 
 if __name__ == "__main__":
 	main()

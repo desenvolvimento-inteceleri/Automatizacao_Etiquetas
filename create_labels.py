@@ -5,6 +5,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
 from reportlab.lib.enums import TA_CENTER
 import tempfile
+import io
 
 paragraph_label_style = ParagraphStyle('paragraph labels style', 
   fontSize=10,
@@ -27,15 +28,17 @@ def desenhar_etiqueta(c, x, y, largura, altura, tabela, logo, champioship, stage
   p.drawOn(c, x, y + altura - 120)
 
 def gerar_etiquetas(tabela, logo, championship, stage):
+  buffer = io.BytesIO()
+
   # Configurações do PDF
   largura_pagina, altura_pagina = A4
   largura_etiqueta = 97 * mm
   altura_etiqueta = 55 * mm
-  margem_horizontal = (largura_pagina - 2 * largura_etiqueta) / 3
-  margem_vertical = (altura_pagina - 5 * altura_etiqueta) / 6
+  margem_horizontal = 2.5 * mm
+  margem_vertical = 5 * mm
 
   # Criar o PDF
-  c = canvas.Canvas("etiquetas.pdf", pagesize=A4)
+  c = canvas.Canvas(buffer, pagesize=A4)
 
   # Salvar o arquivo carregado em um arquivo temporário
   with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
@@ -44,18 +47,21 @@ def gerar_etiquetas(tabela, logo, championship, stage):
 
   # Desenhar etiquetas na página
   x = margem_horizontal
-  y = altura_pagina - margem_vertical - altura_etiqueta
+  y = altura_pagina - margem_vertical - altura_etiqueta - margem_vertical
 
   for index, row in tabela.iterrows():
     desenhar_etiqueta(c, x, y, largura_etiqueta, altura_etiqueta, row, logo_path, championship, stage)
     x += largura_etiqueta + (3 * mm)
-    if x + largura_etiqueta > largura_pagina:
+    if x + largura_etiqueta > (largura_pagina - margem_horizontal):
       x = margem_horizontal
       y -= altura_etiqueta
       if y < margem_vertical:
         c.showPage()
-        y = altura_pagina - margem_vertical - altura_etiqueta
-  return c
-  #c.save() # ISSO AQUI CRIA O ARQUIVO E SALVA NA TUA PASTA, MAS TU NÃO QUER SALVAR E SIM RETORNAR O "C" PARA QUE ELE SEJA ARMAZENADO LÁ NO OUTRO ARQUIVO, DENTRO DE UMA VARIAVEL, ENTÃO TU VAI RETORNAR USANDO O "RETURN C", OU SEJA "C" É A TUA VARIAVEL QUE É UM PDF E TU TA RETORNANDO ELA
+        y = altura_pagina - margem_vertical - altura_etiqueta - margem_vertical
+
+  c.save()
+  pdf_data = buffer.getvalue()
+  buffer.close()
+  return pdf_data
   
 

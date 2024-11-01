@@ -105,14 +105,12 @@ def main():
 		stage = st.text_input("Etapa").upper()
 	
 		if logo_file and championship and stage:
-			pdf = gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stage)
-			if pdf is not None:
-				st.download_button(
-					label="Baixar PDF",
-					data=pdf,
-					file_name='etiquetas_semec.pdf',
-					mime='text/csv'
-				)		    
+			st.download_button(
+				label="Baixar PDF",
+				data=gerar_etiquetas(tabela=clean_df, logo=logo_file, championship=championship, stage=stage),
+				file_name='etiquetas_semec.pdf',
+				mime='text/csv'
+			)		    
 
 if __name__ == "__main__":
 	main()

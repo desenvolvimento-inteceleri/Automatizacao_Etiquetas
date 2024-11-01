@@ -18,7 +18,7 @@ paragraph_label_style = ParagraphStyle(
 # Função para desenhar uma única etiqueta
 def desenhar_etiqueta(c, x, y, largura, altura, tabela, logo, championship, stage):
     # Definir a cor da borda para branco
-    c.setStrokeColorRGB(1, 1, 1)  # Branco
+    ##c.setStrokeColorRGB(1, 1, 1)  # Branco
     
     # Desenho do retângulo da etiqueta
     c.rect(x, y, largura, altura)

@@ -14,10 +14,10 @@ def main():
    
    # Caixa de seleção para criação de etiquetas para cada etapa do campeonato 
 	opcao = st.selectbox(
-     	label='Selecione uma opção', 
-     	options=('1º Etapa', '2º Etapa', '3º Etapa'), 
-     	index=None, 
-     	placeholder='Selecione uma etapa do campeonato'
+     	label= 'Selecione uma opção para criar etiquetas',
+     	options=('1ª Etapa - Classificatoria', 'Paralimpiada', '3ª Semifinal - Semifinal'),
+        index=None,
+        placeholder='Selecione uma opção'
     )
  
 	st.write('Você selecionou:', opcao)

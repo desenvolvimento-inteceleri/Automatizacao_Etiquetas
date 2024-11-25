@@ -2,16 +2,26 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-from create_labels import gerar_etiquetas
+from .labels_semec import gerar_etiquetas
 
 @st.cache_data
 def convert_df(df: pd.DataFrame):
 	return df.to_csv(index=False).encode('utf-8')
 
 def main():
-	st.title("Criação de Etiquetas - SEMEC")
-	pd.options.mode.chained_assignment = None  # default='warn'
-
+	st.subheader("Criação de Etiquetas - SEMEC")
+	pd.options.mode.chained_assignment = None  
+   
+   # Caixa de seleção para criação de etiquetas para cada etapa do campeonato 
+	opcao = st.selectbox(
+     	label= 'Selecione uma opção para criar etiquetas',
+     	options=('1ª Etapa - Classificatoria', 'Paralimpiada', '3ª Semifinal - Semifinal'),
+        index=None,
+        placeholder='Selecione uma opção'
+    )
+ 
+	st.write('Você selecionou:', opcao)
+ 
 	# Botão de upload do arquivo CSV
 	uploaded_file = st.file_uploader("Carregar planilha CSV", type="csv")
 	

@@ -1,7 +1,6 @@
 import pandas as pd
 
 def dm_first_stage(df: pd.DataFrame):
-
     labels_df = pd.read_csv(df)
 
     labels_df.rename(columns={

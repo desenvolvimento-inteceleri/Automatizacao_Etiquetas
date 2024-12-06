@@ -2,7 +2,7 @@ import streamlit as st
 
 import modules.semec.data_manipulation_semec as semec
 import modules.peixe_boi.data_manipulation_peixe_boi as peixe_boi
-import modules.altaneira_ce.data_manipulation_altaneira as altaneira
+import modules.altaneira_ce.main as altaneira
 import modules.aldeias_alta.data_manipulation_aldeias as aldeias_altas
 
 
